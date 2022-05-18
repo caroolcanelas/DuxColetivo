@@ -1,0 +1,55 @@
+body,
+html {
+  font-family: "Josefin Sans", sans-serif;
+  height: 100%;
+  width: 100%;
+}
+
+div.container {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+div.container-talking {
+  width: 50%;
+  height: 100%;
+  background-color: blueviolet;
+}
+
+div.container-bus {
+  width: 50%;
+  height: 100%;
+}
+
+a.title-1 {
+  text-decoration: none;
+  color: white;
+  font-size: 80px;
+  display: flex;
+  justify-content: right;
+  padding-top: 40%;
+}
+a.title-2 {
+  text-decoration: none;
+  color: blueviolet;
+  font-size: 80px;
+  display: flex;
+  justify-content: left;
+  padding-top: 37%;
+}
+p {
+  font-size: 24px;
+}
+
+p.inicio-1 {
+  display: flex;
+  justify-content: right;
+  padding-top: 5px;
+}
+
+p.inicio-2 {
+  display: flex;
+  justify-content: left;
+}
