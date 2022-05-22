@@ -8,6 +8,7 @@ html {
 div.container {
   display: flex;
   justify-content: center;
+  vertical-align: middle;
   height: 100%;
   width: 100%;
 }
@@ -29,6 +30,8 @@ a.title-1 {
   font-size: 80px;
   display: flex;
   justify-content: right;
+  vertical-align: middle;
+  position: relative;
   padding-top: 40%;
 }
 a.title-2 {
