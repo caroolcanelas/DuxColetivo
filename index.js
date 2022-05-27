@@ -237,6 +237,6 @@ function main() {
     "https://dadosabertos.rio.rj.gov.br/apiTransporte/apresentacao/rest/index.cfm/obterPosicoesDaLinha/107"
   );
   infoBus = JSON.parse(data);
-  console.log(infoBus.DATA[1][2]);
+  console.log(infoBus);
 }
 main();
