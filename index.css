@@ -6,50 +6,75 @@ html {
 }
 
 div.container {
-  display: flex;
-  justify-content: center;
   height: 100%;
   width: 100%;
 }
 
-div.container-talking {
-  width: 50%;
-  height: 100%;
-  background-color: blueviolet;
+div.row-dux,
+div.row-coletivo {
+  width: 100%;
+  height: 50%;
+  margin: 0px auto;
 }
 
-div.container-bus {
-  width: 50%;
-  height: 100%;
+div.row-dux {
+  background-color: blueviolet;
 }
 
 a.title-1 {
   text-decoration: none;
-  color: white;
-  font-size: 80px;
-  display: flex;
-  justify-content: right;
-  padding-top: 40%;
 }
+
+h1.title-1 {
+  text-decoration: none;
+  font-size: 80px;
+  color: white;
+  position: relative;
+  top: 195px;
+  text-align: center;
+}
+
 a.title-2 {
+  text-decoration: none;
+}
+
+h1.title-2 {
   text-decoration: none;
   color: blueviolet;
   font-size: 80px;
-  display: flex;
-  justify-content: left;
-  padding-top: 37%;
-}
-p {
-  font-size: 24px;
+  position: relative;
+  bottom: 65px;
+  left: 50px;
+  text-align: center;
 }
 
-p.inicio-1 {
-  display: flex;
-  justify-content: right;
-  padding-top: 5px;
+img {
+  width: 20%;
+  position: relative;
+  right: 50px;
+  bottom: 25px;
 }
 
-p.inicio-2 {
+.dux-text,
+.coletivo-text {
+  font-size: 26px;
+  text-align: center;
+}
+
+.dux-text {
+  color: white;
+}
+
+.coletivo-text {
+  color: blueviolet;
+}
+
+.linha {
+  border-radius: 15px;
+  border-color: blueviolet;
+}
+
+.inputText {
   display: flex;
-  justify-content: left;
+  justify-content: center;
 }
