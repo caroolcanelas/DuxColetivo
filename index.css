@@ -30,7 +30,7 @@ h1.title-1 {
   font-size: 80px;
   color: white;
   position: relative;
-  top: 150px;
+  top: 210px;
   text-align: center;
 }
 
@@ -43,7 +43,7 @@ h1.title-2 {
   color: blueviolet;
   font-size: 80px;
   position: relative;
-  bottom: 75px;
+  bottom: 65px;
   left: 50px;
   text-align: center;
 }
