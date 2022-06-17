@@ -75,7 +75,17 @@ img {
   border-style: solid;
 }
 
-.inputText {
+.inputText,
+.inputPesquisa {
   display: flex;
   justify-content: center;
+  margin: 10px;
+}
+
+.pesquisa {
+  border-radius: 15px;
+  border-color: blueviolet;
+  border-style: solid;
+  color: white;
+  background-color: blueviolet;
 }

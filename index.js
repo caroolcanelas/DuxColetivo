@@ -231,11 +231,36 @@ function fazGet(url) {
   return request.responseText;
 }
 
+let linhaOnibus = document.querySelector("input.linha");
+
+function pesquisarLinha() {}
+
 function main() {
   data = fazGet(
-    "https://dadosabertos.rio.rj.gov.br/apiTransporte/apresentacao/rest/index.cfm/obterPosicoesDaLinha/107"
+    `https://dadosabertos.rio.rj.gov.br/apiTransporte/apresentacao/rest/index.cfm/obterPosicoesDaLinha/107`
   );
   infoBus = JSON.parse(data);
   console.log(infoBus);
 }
 main();
+
+function showLocation(response) {
+  let local = document.querySelector("div.response");
+  local.innerHTML = response.coords.latitude;
+  local.innerHTML = response.coords.longitude;
+}
+
+function showPosition(position) {
+  let apiKey = "8cbd64a63ba04c3afa29f0681a36cb68";
+  let lat = Math.round(position.coords.latitude);
+  let long = Math.round(position.coords.longitude);
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(showLocation);
+}
+
+function getCurrentPosition() {
+  navigator.geolocation.getCurrentPosition(showPosition);
+}
+
+let botaoPesquisa = document.querySelector("button.pesquisa");
+botaoPesquisa.addEventListener("click", getCurrentPosition);
