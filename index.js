@@ -207,22 +207,8 @@ function ativar() {
 }
 
 teste.onmousedown = ativar;
-/* Tentativa 1 
-const url =
-  "https://dadosabertos.rio.rj.gov.br/apiTransporte/apresentacao/rest/index.cfm/obterPosicoesDaLinha/107";
-fetch(url)
-  .then((response) => response.json())
-  .then((data) => {
-    //Aqui iremos trabalhar com o JSON
-    Array.from(data).forEach((linha) => {
-      // Log de cada código de ônibus
-      console.log(linha.ordem);
-    });
-  })
-  .catch((err) => {
-    //Fazer algo com os erros aqui
-    console.log(err);
-  });*/
+
+/* API do onibus */
 
 function fazGet(url) {
   let request = new XMLHttpRequest();
@@ -231,9 +217,7 @@ function fazGet(url) {
   return request.responseText;
 }
 
-let linhaOnibus = document.querySelector("input.linha");
-
-function pesquisarLinha() {}
+let linhaOnibus = document.querySelector("input#linha").value;
 
 function main() {
   data = fazGet(
@@ -244,23 +228,39 @@ function main() {
 }
 main();
 
-function showLocation(response) {
-  let local = document.querySelector("div.response");
-  local.innerHTML = response.coords.latitude;
-  local.innerHTML = response.coords.longitude;
+newData = JSON.parse(data);
+newData["DATA"][0].slice(3, 5);
+
+/* API da geolocalização */
+
+if ("geolocation" in navigator) {
+  /* geolocation is available */
+} else {
+  alert(
+    "I'm sorry, but geolocation services are not supported by your browser."
+  );
 }
 
-function showPosition(position) {
-  let apiKey = "8cbd64a63ba04c3afa29f0681a36cb68";
-  let lat = Math.round(position.coords.latitude);
-  let long = Math.round(position.coords.longitude);
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${apiKey}&units=metric`;
-  axios.get(apiUrl).then(showLocation);
+navigator.geolocation.getCurrentPosition(function (position) {
+  do_something(position.coords.latitude, position.coords.longitude);
+});
+
+function do_something(lat, long) {
+  document.querySelectorAll(
+    "p"
+  )[2].innerHTML = `Seu ônibus mais próximo esta em ${newData["DATA"][0].slice(
+    3,
+    5
+  )} e seu local é${lat} ${long}`;
 }
 
-function getCurrentPosition() {
-  navigator.geolocation.getCurrentPosition(showPosition);
+let botao = document.querySelector("button#pesquisa");
+
+function linhaDoOnibus() {
+  let linhaOnibus = document.querySelector("input#linha");
+  let resp = document.querySelector(".inicio-2");
+
+  resp.innerHTML = `Seu ônibus é ${linhaOnibus.value}`;
 }
 
-let botaoPesquisa = document.querySelector("button.pesquisa");
-botaoPesquisa.addEventListener("click", getCurrentPosition);
+botao.addEventListener("click", linhaDoOnibus);
