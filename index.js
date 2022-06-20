@@ -217,19 +217,23 @@ function fazGet(url) {
   return request.responseText;
 }
 
-let linhaOnibus = document.querySelector("input#linha").value;
+function main(linhaOnibus) {
 
-function main() {
-  data = fazGet(
-    `https://dadosabertos.rio.rj.gov.br/apiTransporte/apresentacao/rest/index.cfm/obterPosicoesDaLinha/107`
+  var data = fazGet(
+    `https://dadosabertos.rio.rj.gov.br/apiTransporte/apresentacao/rest/index.cfm/obterPosicoesDaLinha/${linhaOnibus}`
   );
+  
   infoBus = JSON.parse(data);
-  console.log(infoBus);
+  if(infoBus.DATA.length >0){
+    updateLocal(infoBus);
+  }else{
+    document.querySelectorAll(
+      "p"
+    )[2].innerHTML = `Seu ônibus não foi encontrado. Verifique sua linha!`
+  }
+  console.log(infoBus.DATA.length);
 }
-main();
 
-newData = JSON.parse(data);
-newData["DATA"][0].slice(3, 5);
 
 /* API da geolocalização */
 
@@ -241,26 +245,30 @@ if ("geolocation" in navigator) {
   );
 }
 
-navigator.geolocation.getCurrentPosition(function (position) {
-  do_something(position.coords.latitude, position.coords.longitude);
-});
 
-function do_something(lat, long) {
-  document.querySelectorAll(
-    "p"
-  )[2].innerHTML = `Seu ônibus mais próximo esta em ${newData["DATA"][0].slice(
-    3,
-    5
-  )} e seu local é${lat} ${long}`;
+function updateLocal(newData){
+  navigator.geolocation.getCurrentPosition(function (position) {
+    document.querySelectorAll(
+      "p"
+    )[2].innerHTML = `Seu ônibus mais próximo esta em ${newData["DATA"][0].slice(
+      3,
+      5
+    )} e seu local é${position.coords.latitude} ${position.coords.longitude}`;
+
+  });
 }
+
 
 let botao = document.querySelector("button#pesquisa");
 
 function linhaDoOnibus() {
   let linhaOnibus = document.querySelector("input#linha");
   let resp = document.querySelector(".inicio-2");
-
+  console.log(linhaOnibus.value);
+  console.log("dfsfs")
   resp.innerHTML = `Seu ônibus é ${linhaOnibus.value}`;
+  main(linhaOnibus.value)
 }
 
 botao.addEventListener("click", linhaDoOnibus);
+
