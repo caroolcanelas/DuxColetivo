@@ -218,22 +218,20 @@ function fazGet(url) {
 }
 
 function main(linhaOnibus) {
-
   var data = fazGet(
     `https://dadosabertos.rio.rj.gov.br/apiTransporte/apresentacao/rest/index.cfm/obterPosicoesDaLinha/${linhaOnibus}`
   );
-  
+
   infoBus = JSON.parse(data);
-  if(infoBus.DATA.length >0){
+  if (infoBus.DATA.length > 0) {
     updateLocal(infoBus);
-  }else{
+  } else {
     document.querySelectorAll(
       "p"
-    )[2].innerHTML = `Seu ônibus não foi encontrado. Verifique sua linha!`
+    )[2].innerHTML = `Seu ônibus não foi encontrado. Verifique sua linha!`;
   }
   console.log(infoBus.DATA.length);
 }
-
 
 /* API da geolocalização */
 
@@ -245,19 +243,18 @@ if ("geolocation" in navigator) {
   );
 }
 
-
-function updateLocal(newData){
+function updateLocal(newData) {
   navigator.geolocation.getCurrentPosition(function (position) {
+    var distancia = getDistanceFromLatLonInKm(
+      { lat: position.coords.latitude, lng: position.coords.longitude },
+      { lat: newData["DATA"][0][3], lng: newData["DATA"][0][4] }
+    );
     document.querySelectorAll(
       "p"
-    )[2].innerHTML = `Seu ônibus mais próximo esta em ${newData["DATA"][0].slice(
-      3,
-      5
-    )} e seu local é${position.coords.latitude} ${position.coords.longitude}`;
-
+    )[2].innerHTML = `Seu ônibus mais próximo esta em a ${distancia} metros de você`;
+    console.log(distancia);
   });
 }
-
 
 let botao = document.querySelector("button#pesquisa");
 
@@ -265,10 +262,28 @@ function linhaDoOnibus() {
   let linhaOnibus = document.querySelector("input#linha");
   let resp = document.querySelector(".inicio-2");
   console.log(linhaOnibus.value);
-  console.log("dfsfs")
   resp.innerHTML = `Seu ônibus é ${linhaOnibus.value}`;
-  main(linhaOnibus.value)
+  main(linhaOnibus.value);
 }
 
 botao.addEventListener("click", linhaDoOnibus);
 
+//convertendo pra metros
+
+function getDistanceFromLatLonInKm(position1, position2) {
+  "use strict";
+  var deg2rad = function (deg) {
+      return deg * (Math.PI / 180);
+    },
+    R = 6371,
+    dLat = deg2rad(position2.lat - position1.lat),
+    dLng = deg2rad(position2.lng - position1.lng),
+    a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(deg2rad(position1.lat)) *
+        Math.cos(deg2rad(position1.lat)) *
+        Math.sin(dLng / 2) *
+        Math.sin(dLng / 2),
+    c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  return (R * c * 1000).toFixed();
+}
