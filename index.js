@@ -1,4 +1,3 @@
-/* Fala do site */
 speaks = [
   {
     name: "Alex", // 0
@@ -190,24 +189,37 @@ speaks = [
   },
 ];
 
-teste = document.querySelector(".title-1");
-console.log(teste);
+const titulo = document.querySelector(".title-1");
+const searchbox = document.querySelector("#linha");
+const toque = document.querySelector("#toque");
 const msg = new SpeechSynthesisUtterance();
+var boasVindas = 1;
 msg.volume = 1; // 0 to 1
-msg.rate = 1; // 0.1 to 10
+msg.rate = 2; // 0.1 to 10
 msg.pitch = 1.5; // 0 to 2
-msg.text = "Talking Bus.";
 
-const voice = speaks[23]; //47
+const voice = speaks[22]; //47
 console.log(`Voice: ${voice.name} and Lang: ${voice.lang}`);
 msg.voiceURI = voice.name;
 msg.lang = voice.lang;
 
 function ativar() {
-  speechSynthesis.speak(msg);
+  if(boasVindas){
+    msg.text = "Bem-vindo ao Docs Coletivo, clique na tela para continuar.";
+    speechSynthesis.speak(msg);
+    boasVindas = 0;
+  }
+  
 }
 
-teste.onmousedown = ativar;
+searchbox.addEventListener("input", ()=>{
+  msg.text = searchbox.value;
+  speechSynthesis.speak(msg);
+  console.log('aaaaaa')
+})
+
+
+titulo.onclick = ativar;
 
 /* API do onibus */
 
@@ -253,8 +265,9 @@ function updateLocal(newData) {
     document.querySelectorAll(
       "p"
     )[2].innerHTML = `Seu ônibus mais próximo esta em a ${distancia} metros de você`;
-    console.log(position.coords.latitude);
-    console.log(position.coords.longitude);
+    msg.text = document.querySelectorAll("p")[2].innerHTML;
+    speechSynthesis.speak(msg);
+    console.log(distancia);
   });
 }
 
@@ -265,6 +278,8 @@ function linhaDoOnibus() {
   let resp = document.querySelector(".inicio-2");
   console.log(linhaOnibus.value);
   resp.innerHTML = `Seu ônibus é ${linhaOnibus.value}`;
+  msg.text=resp.innerHTML;
+  speechSynthesis.speak(msg);
   main(linhaOnibus.value);
 }
 
