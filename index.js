@@ -266,7 +266,7 @@ function updateLocal(newData) {
     );
     document.querySelectorAll(
       "p"
-    )[2].innerHTML = `Seu ônibus mais próximo esta em a ${distancia} metros de você`;
+    )[2].innerHTML = `Seu ônibus mais próximo está a ${distancia} metros de você`;
     msg.text = document.querySelectorAll("p")[2].innerHTML;
     speechSynthesis.speak(msg);
     console.log(distancia);
