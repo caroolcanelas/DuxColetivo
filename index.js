@@ -242,6 +242,8 @@ function main(linhaOnibus) {
     document.querySelectorAll(
       "p"
     )[2].innerHTML = `Seu ônibus não foi encontrado. Verifique sua linha!`;
+    msg.text = document.querySelectorAll("p")[2].innerHTML.value;
+    speechSynthesis.speak(msg);
   }
   console.log(infoBus.DATA.length);
 }
