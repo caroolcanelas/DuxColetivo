@@ -1,3 +1,4 @@
+/* Fala do site */
 speaks = [
   {
     name: "Alex", // 0
@@ -252,7 +253,8 @@ function updateLocal(newData) {
     document.querySelectorAll(
       "p"
     )[2].innerHTML = `Seu ônibus mais próximo esta em a ${distancia} metros de você`;
-    console.log(distancia);
+    console.log(position.coords.latitude);
+    console.log(position.coords.longitude);
   });
 }
 
